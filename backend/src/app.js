@@ -7,7 +7,7 @@ const candidatesRoutes = require('./routes/api/candidates.js');
 
 app.listen(PORT, () => {console.log('El servidor esta corriendo en el puerto: ' + PORT);
 });
-app.use('/uploads', express.static(path.join(__dirname, '../public/img')));
+
 /**
  * CORS: es un paquete que simplifica la configuración de políticas de acceso cruzado (CORS) en 
  * Express.
