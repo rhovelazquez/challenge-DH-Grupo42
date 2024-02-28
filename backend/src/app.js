@@ -1,9 +1,12 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = 3001;
 
 const professionsRoutes = require('./routes/api/professions.js');
 const candidatesRoutes = require('./routes/api/candidates.js');
+
+app.use('/uploads', express.static(path.join(__dirname, '.' ,'uploads')));
 
 app.listen(PORT, () => {console.log('El servidor esta corriendo en el puerto: ' + PORT);
 });
