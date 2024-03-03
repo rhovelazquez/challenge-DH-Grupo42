@@ -11,7 +11,7 @@ import luis from '../assets/img/foto6.jpg'
 
 function Card(){
 
-	const [candidate, setCandidate] = useState({});
+	const [candidate, setCandidate] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -23,15 +23,15 @@ function Card(){
 				}
 
 				const data = await response.json();
-				console.log(data);
 
 				setCandidate(data.data);
-				/* console.log(candidate); */
+				console.log('DATA:' , data);
+
 			} catch (error) {
 				console.error('Error fetching data:', error);
 			}
 		}
-		console.log(candidate);
+		
 		fetchData();
 	}, []);
 
@@ -44,13 +44,22 @@ function Card(){
 				<h2>Aspirantes</h2>
 				<article className="person-boxes">
 
-						<div className="person-box shadow p-3 mb-5 bg-body-tertiary rounded">
+					{candidate.map((candidate, index) => (
+						<div key={index} className="person-box shadow p-3 mb-5 bg-body-tertiary rounded">
 							<div className="box-avatar">
-								<img src={gloria} alt="Gloria"/>
+								<img src={`http://localhost:3001/uploads/${candidate.image}`} alt={`Persona ${index + 1}`}/>
 							</div>
 							<div className="box-bio">
-								<h2 className="bio-name">{candidate[0].name}</h2>
-								<p className="bio-position">Administrador</p>
+								<h2 className="bio-name">{candidate.name}</h2>
+								{Array.isArray(candidate.professionCand) ? (
+										// Verificar si es un array antes de mapearlo
+										candidate.professionCand.map((prof, i) => (
+											<p key={i} className="bio-position">{prof.name}</p>
+										))
+									) : (
+										// Si no es un array renderiza la unica profesion que hay
+										<p className="bio-position">Profesión: {candidate.professionCand}</p>
+									)}
 							</div>
 							<div className="box-actions">
 								<button>
@@ -64,6 +73,8 @@ function Card(){
 								</button>
 							</div>
 						</div>
+					))}
+
 				</article>
 			</section>
 			
