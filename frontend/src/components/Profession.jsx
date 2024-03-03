@@ -1,8 +1,35 @@
 import React from 'react';
-
+import { useEffect, useState } from 'react';
 
 function Profession(){
 
+	const [profession, setProfession] = useState([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch('http://localhost:3001/professions/all');
+
+				if(!response.ok){
+					throw new Error('Petición fallida');
+				}
+
+				const data = await response.json();
+
+				setProfession(data.data);
+				console.log('DATA:', data);
+			}catch {
+				console.log('Error fetching data:', error);
+			}
+		}
+
+		fetchData();
+	}, []);
+	console.log(profession);
+	const proffesions = [];
+	for(let i =0 ; i<profession.length; i++){
+		proffesions.push(<button key={i} type="button" className="list-group-item list-group-item-action text-center"> {profession[i].name} </button>)
+	}
 
     return(
 
@@ -14,15 +41,11 @@ function Profession(){
 						aria-current="true">
 						Listado de Profesiones
 					</h4>
-					<button type="button" className="list-group-item list-group-item-action text-center">Abogado</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Arquitecto</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Botánico</button>
-					<button type="button"
-						className="list-group-item list-group-item-action text-center">Computista</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Economista</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Técnico de sonido</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Profesor</button>
-					<button type="button" className="list-group-item list-group-item-action text-center">Linguista</button>
+					
+					<div>
+						{proffesions}
+					</div>
+
 				</div>
 			</section>
         </>
