@@ -11,7 +11,7 @@ let professionController= {
                     meta: {
                         status : 200,
                         total: professions.length,
-                        url: '/professions'
+                        url: '/professions/all'
                     },
                     data: professions
                 }

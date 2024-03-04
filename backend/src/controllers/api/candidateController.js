@@ -12,7 +12,7 @@ let candidateController= {
                     meta: {
                         status : 200,
                         total: candidate.length,
-                        url: '/candidate'
+                        url: '/candidate/all'
                     },
                     data: candidate
                 }
@@ -22,7 +22,6 @@ let candidateController= {
             res.status(500).json({ error: error.message });
         }
     },
-
 }
 
 module.exports= candidateController;
